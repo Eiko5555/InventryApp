@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/image"
+        android:paddingRight="@dimen/padding_10"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:padding="10dp"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D"
+            tools:text="chocolate" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/padding_10">
+
+            <LinearLayout
+                android:id="@+id/pricelayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="$"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="#2B3D4D" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingRight="@dimen/padding_10"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="#2B3D4D"
+                    tools:text="4.55" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/quatityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/pricelayout"
+                android:paddingRight="5dp"
+                android:text="@string/listItem_quantity"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/quatityText"
+                android:fontFamily="sans-serif-medium"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/holo_blue_dark"
+                tools:text="5" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true">
+
+        <Button
+            android:id="@+id/saleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:focusable="false"
+            android:text="@string/sale" />
+
+        <Button
+            android:id="@+id/reorderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:focusable="false"
+            android:text="@string/reorder" />
+    </LinearLayout>
+
+</RelativeLayout>

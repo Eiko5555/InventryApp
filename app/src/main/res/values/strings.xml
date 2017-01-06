@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Inventry App</string>
+    <string name="empty_view_title_text">Nothing to show.</string>
+    <string name="empty_view_subtitle_text">Please add item</string>
+    <string name="unit_pet_weight">$</string>
+    <string name="hint_pet_weight">price</string>
+    <string name="category_measurement">Price</string>
+    <string name="category_quantity">Qantity</string>
+    <string name="category_gender">Quantity</string>
+    <string name="category_overview">Item name</string>
+    <string name="hint_pet_name">item</string>
+    <string name="action_delete_all_entries">Delete All Items</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete Item</string>
+    <string name="unsaved_dialog_message">Discard your changes and quit editing?</string>
+    <string name="discard">Discard edit</string>
+    <string name="keep_editing">Keep editing</string>
+    <string name="delete_dialog_message">Do you want to delete?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="sale">Sale</string>
+    <string name="listItem_quantity">Qty: </string>
+    <string name="reorder">Reorder</string>
+    <string name="ordermailSubject">Order for</string>
+    <string name="action_addImage">Add Image</string>
+</resources>
