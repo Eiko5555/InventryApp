@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.udacitysubmission.eiko.inventryapp.data.InventoryContract;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity
                         EditorActivity.class);
                 Uri currentUri = ContentUris.withAppendedId(
                         InventoryContract.InventoryEntry.CONTENT_URI, id);
+                Log.v("main activity","onclick onlist item" + currentUri);
                 intent.setData(currentUri);
                 startActivity(intent);
             }
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity
         int rowDeleted = getContentResolver().delete(
                 InventoryContract.InventoryEntry.CONTENT_URI,
                 null, null);
+        Toast.makeText(this, rowDeleted + "item deleted"
+                    , Toast.LENGTH_LONG).show();
         Log.v("CategoryActivity", "rows deleted");
     }
 

@@ -21,6 +21,6 @@
     <string name="sale">Sale</string>
     <string name="listItem_quantity">Qty: </string>
     <string name="reorder">Reorder</string>
-    <string name="ordermailSubject">Order for</string>
+    <string name="ordermailSubject">Re-order request for </string>
     <string name="action_addImage">Add Image</string>
 </resources>

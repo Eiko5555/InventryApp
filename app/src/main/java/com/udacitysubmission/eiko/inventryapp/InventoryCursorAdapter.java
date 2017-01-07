@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         if (TextUtils.isEmpty(itemImageString)){
             itemImageString = InventoryContract.NO_IMAGE;
         }
-        final String itemName = cursor.getString(sItemName);
+         final String itemName = cursor.getString(sItemName);
         String itemPrice = cursor.getString(sPrice);
         String itemQuantity = cursor.getString(sQuantity);
         final int quantityUpdate = Integer.parseInt(itemQuantity);
@@ -93,11 +94,12 @@ public class InventoryCursorAdapter extends CursorAdapter {
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String orderMsg = orderSummery(itemName, quantityUpdate);
+                String orderMsg = orderSummery(itemName);
                 Intent intentOrderRequest = new Intent(Intent.ACTION_SENDTO);
                 intentOrderRequest.setData(Uri.parse("mailto: amazon@gmail.com"));
                 intentOrderRequest.putExtra(Intent.EXTRA_SUBJECT,
-                        R.string.ordermailSubject + itemName);
+                        "Re-order request for " + itemName);
+                Log.v("cursoradapter", "order intent" + itemName);
                 intentOrderRequest.putExtra(Intent.EXTRA_TEXT,
                         orderMsg);
                 context.startActivity(intentOrderRequest);
@@ -105,7 +107,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         });
     }
 
-    private String orderSummery(String name, int quantity) {
+    private String orderSummery(String name) {
         String orderMsg = "Order Request\n" +
                 "We would like to order 10 of " + name;
         return orderMsg;

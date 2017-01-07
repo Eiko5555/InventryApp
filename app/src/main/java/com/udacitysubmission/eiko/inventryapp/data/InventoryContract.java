@@ -16,9 +16,10 @@ public final class InventoryContract {
             "com.udacitysubmission.eiko.inventryapp";
     public static final Uri BASE_CONTENT_URI =
             Uri.parse("content://" + CONTENT_AUTHORITY);
-    public static final String PATH_INTENTORY = "inventoryapp";
+
+    public static final String PATH_INTENTORY = "inventryapp";
     public static final String NO_IMAGE =
-            "res/drawable/ic_launcher_for_drawable.png";
+            "drawable/ic_launcher_for_drawable.png";
 
     public static abstract class InventoryEntry implements BaseColumns {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(
@@ -32,7 +33,7 @@ public final class InventoryContract {
 
         public static final String CONTENTITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/"
-                        + CONTENT_AUTHORITY + PATH_INTENTORY;
+                        + CONTENT_AUTHORITY + "/"+ PATH_INTENTORY;
 
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_IMAGE = "image";

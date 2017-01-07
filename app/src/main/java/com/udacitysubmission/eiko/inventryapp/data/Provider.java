@@ -61,7 +61,8 @@ public class Provider extends ContentProvider {
                         null, null, sortOrder);
                 break;
             default:
-                throw new IllegalArgumentException("Can notreach query");
+                throw new IllegalArgumentException(
+                        "Can notreach query. this is uri:"+ uri);
         }
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
@@ -98,6 +99,7 @@ public class Provider extends ContentProvider {
 
         String image = values.getAsString(InventoryEntry.COLUMN_IMAGE);
         if (image == null) {
+            image = InventoryContract.NO_IMAGE;
             throw new IllegalArgumentException("please pick image.");
         }
 
@@ -149,12 +151,13 @@ public class Provider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         final int match = sUriMatcher.match(uri);
-        switch (match) {
+      switch (match) {
             case ITEM:
                 return updateItem(uri, values, selection, selectionArgs);
             case ITEM_ID:
                 selection = InventoryEntry._ID + "=?";
-                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                selectionArgs = new String[]{
+                        String.valueOf(ContentUris.parseId(uri))};
                 return updateItem(uri, values, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("updatenot supprted for" + uri);

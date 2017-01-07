@@ -51,6 +51,7 @@ public class EditorActivity extends AppCompatActivity
     private Uri mCurrentUri;
     private Uri mImageUri;
     private boolean mInventryHasChanged = false;
+    String image;
 
     private View.OnTouchListener mTouchListner =
             new View.OnTouchListener() {
@@ -72,9 +73,11 @@ public class EditorActivity extends AppCompatActivity
         if (mCurrentUri == null) {
             setTitle("Add Item");
             invalidateOptionsMenu();
+            Log.v("EditorActivity","add item");
         } else {
             setTitle("Edit Item");
             getLoaderManager().initLoader(INVENTRY_LOADER, null, this);
+            Log.v("EditorActivity","editing item");
         }
 
         mItemEditText = (EditText) findViewById(R.id.edit_item_name);
@@ -144,7 +147,10 @@ public class EditorActivity extends AppCompatActivity
         String imageString = "";
         if (mImageUri != null){
             imageString = mImageUri.toString();
+        }else {
+            imageString = image;
         }
+
         Log.v("editorvtivity", "image string : " + imageString);
 
         if (mCurrentUri == null && TextUtils.isEmpty(nameString)
@@ -170,9 +176,11 @@ public class EditorActivity extends AppCompatActivity
         if (mCurrentUri == null) {
             getContentResolver().insert(
                     InventoryContract.InventoryEntry.CONTENT_URI, values);
+            Toast.makeText(this,"Error saving...", Toast.LENGTH_LONG).show();
         } else {
             getContentResolver().update(
                     mCurrentUri, values, null, null);
+            Toast.makeText(this,"saved.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -289,10 +297,10 @@ public class EditorActivity extends AppCompatActivity
             int quantityColumIndex = cursor.getColumnIndex(
                     InventoryContract.InventoryEntry.COLUMN_ITEM_QUANTITY);
 
-            String image = cursor.getString(imageColumIndex);
+            image = cursor.getString(imageColumIndex);
             String name = cursor.getString(nameColumIndex);
             int price = cursor.getInt(prieColumIndex);
-            int quantity = cursor.getInt(quantityColumIndex);
+            quantity = cursor.getInt(quantityColumIndex);
 
             mImageView.setImageURI(Uri.parse(image));
             mItemEditText.setText(name);
