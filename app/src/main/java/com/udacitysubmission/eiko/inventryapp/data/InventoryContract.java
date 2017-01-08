@@ -18,8 +18,10 @@ public final class InventoryContract {
             Uri.parse("content://" + CONTENT_AUTHORITY);
 
     public static final String PATH_INTENTORY = "inventryapp";
+
     public static final String NO_IMAGE =
-            "drawable/ic_launcher_for_drawable.png";
+            "android.resource://com.udacitysubmission.eiko.inventryapp/drawable/l_e_others";
+//            "drawable/l_e_others";
 
     public static abstract class InventoryEntry implements BaseColumns {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(

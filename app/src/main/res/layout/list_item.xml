@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="false"
     android:orientation="horizontal"
     android:padding="10dp">
@@ -18,7 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <TextView
             android:id="@+id/name"
@@ -85,26 +86,13 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentRight="true">
-
-        <Button
+    <Button
             android:id="@+id/saleButton"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:focusable="false"
-            android:text="@string/sale" />
-
-        <Button
-            android:id="@+id/reorderButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:focusable="false"
-            android:text="@string/reorder" />
-    </LinearLayout>
-
+            android:text="@string/sale"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

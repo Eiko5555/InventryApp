@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.udacitysubmission.eiko.inventryapp.R;
 import com.udacitysubmission.eiko.inventryapp.data.InventoryContract.InventoryEntry;
 
 /**
@@ -17,6 +18,7 @@ import com.udacitysubmission.eiko.inventryapp.data.InventoryContract.InventoryEn
  */
 public class Provider extends ContentProvider {
 
+    String image;
     private static final int ITEM = 100;
     private static final int ITEM_ID = 101;
     private static final UriMatcher sUriMatcher =
@@ -97,10 +99,13 @@ public class Provider extends ContentProvider {
     private Uri insertItem(Uri uri, ContentValues values) {
         SQLiteDatabase dbInsert = mDBhelpper.getWritableDatabase();
 
-        String image = values.getAsString(InventoryEntry.COLUMN_IMAGE);
+        image = values.getAsString(InventoryEntry.COLUMN_IMAGE);
         if (image == null) {
+//            image = "drawable://" + R.drawable.l_e_others;
             image = InventoryContract.NO_IMAGE;
-            throw new IllegalArgumentException("please pick image.");
+//            Uri path = Uri.parse("android.resource://com.udacitysubmission.eiko.inventryapp/drawable/l_e_others");
+//            image = path.toString();
+//            throw new IllegalArgumentException("please pick image.");
         }
 
         String name = values.getAsString(InventoryEntry.COLUMN_ITEM_NAME);

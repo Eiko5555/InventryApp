@@ -10,6 +10,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ public class EditorActivity extends AppCompatActivity
     private Uri mImageUri;
     private boolean mInventryHasChanged = false;
     String image;
+    String name;
 
     private View.OnTouchListener mTouchListner =
             new View.OnTouchListener() {
@@ -86,6 +88,23 @@ public class EditorActivity extends AppCompatActivity
         mButtonAddImage = (Button) findViewById(R.id.addButtonImage);
         mImageView = (ImageView)findViewById(R.id.imageEditor);
 
+        Button orderButton = (Button)findViewById(R.id.reorderButton);
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String orderMsg = orderSummery(name);
+                Intent intentOrderRequest = new Intent(Intent.ACTION_SENDTO);
+                intentOrderRequest.setData(Uri.parse("mailto: amazon@gmail.com"));
+                intentOrderRequest.putExtra(Intent.EXTRA_SUBJECT,
+                        "Re-order request for " + name);
+                Log.v("cursoradapter", "order intent" + name);
+                intentOrderRequest.putExtra(Intent.EXTRA_TEXT,
+                        orderMsg);
+                startActivity(intentOrderRequest);
+            }
+        });
+
+
         mButtonAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +118,11 @@ public class EditorActivity extends AppCompatActivity
         mButtonAddImage.setOnTouchListener(mTouchListner);
         mImageView.setOnTouchListener(mTouchListner);
 
+    }
+    private String orderSummery(String name) {
+        String orderMsg = "Order Request\n" +
+                "We would like to order 10 of " + name;
+        return orderMsg;
     }
 
     public void openImageSelector() {
@@ -143,33 +167,37 @@ public class EditorActivity extends AppCompatActivity
 
     private void saveItem() {
         String nameString = mItemEditText.getText().toString().trim();
+        Log.v("editor activity", "nameString  = " + nameString);
         String priceString = mPriceEditText.getText().toString().trim();
         String imageString = "";
         if (mImageUri != null){
             imageString = mImageUri.toString();
+            if (imageString == null){
+                imageString = InventoryContract.NO_IMAGE;
+            }
         }else {
             imageString = image;
         }
 
         Log.v("editorvtivity", "image string : " + imageString);
 
-        if (mCurrentUri == null && TextUtils.isEmpty(nameString)
+        if (mCurrentUri == null
+                && TextUtils.isEmpty(nameString)
                 && TextUtils.isEmpty(priceString)
-                && mImageUri == null
-                ) {
+                && mImageUri == null) {
             return;
         }
 
         ContentValues values = new ContentValues();
         values.put(InventoryContract.InventoryEntry.COLUMN_IMAGE, imageString);
         values.put(InventoryContract.InventoryEntry.COLUMN_ITEM_NAME, nameString);
+
         int price = 0;
         if (!TextUtils.isEmpty(priceString)) {
             price = Integer.parseInt(priceString);
         }
         values.put(InventoryContract.InventoryEntry.COLUMN_ITEM_PRICE, price);
         values.put(InventoryContract.InventoryEntry.COLUMN_ITEM_QUANTITY, quantity);
-
 
         Log.v("EditorActivity", "saveing item");
 
@@ -298,7 +326,7 @@ public class EditorActivity extends AppCompatActivity
                     InventoryContract.InventoryEntry.COLUMN_ITEM_QUANTITY);
 
             image = cursor.getString(imageColumIndex);
-            String name = cursor.getString(nameColumIndex);
+            name = cursor.getString(nameColumIndex);
             int price = cursor.getInt(prieColumIndex);
             quantity = cursor.getInt(quantityColumIndex);
 
@@ -314,11 +342,24 @@ public class EditorActivity extends AppCompatActivity
         mItemEditText.setText("");
         mPriceEditText.setText("");
         mQuantityTextView.setText("");
-        File imageFile = new File(InventoryContract.NO_IMAGE);
-        if (imageFile.exists()){
-            Bitmap bitmap = BitmapFactory.decodeFile(
-                    imageFile.getAbsolutePath());
-            mImageView.setImageBitmap(bitmap);
+        if (image == null) {
+            mImageView.setImageResource(R.drawable.l_e_others);
+//            mImageView.setImageDrawable(getResources().getDrawable(R.drawable.l_e_others)
+//            String string = "@drawable/drawable.l_e_others";
+//            int imageresource = getResources().getIdentifier(string,null,
+//                    getPackageName());
+//            Drawable res = getResources().getDrawable(imageresource);
+//            mImageView.setImageDrawable(res);
+
+//            mImageView.getimageResource(Uri.parse("android.resource://com.udacitysubmission.eiko.inventryapp/l_e_others.png"));
+
         }
+//        }
+//        File imageFile = new File(InventoryContract.NO_IMAGE);
+//        if (imageFile.exists()){
+//            Bitmap bitmap = BitmapFactory.decodeFile(
+//                    imageFile.getAbsolutePath());
+//            mImageView.setImageBitmap(bitmap);
+//        }
     }
 }

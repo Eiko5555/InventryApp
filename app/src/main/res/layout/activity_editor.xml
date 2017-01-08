@@ -113,6 +113,16 @@
                 android:text="+" />
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+    android:id="@+id/reorderButton"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:text="@string/reorder"
+        android:layout_gravity="center"
+        android:paddingTop="@dimen/padding_10"/>
+
     <Button
         android:id="@+id/addButtonImage"
         android:layout_width="300dp"
@@ -121,8 +131,9 @@
         android:text="@string/action_addImage"
         android:layout_margin="@dimen/padding_10"/>
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/imageEditor"
-        android:src="@drawable/ic_launcher_for_drawable"/>
+        android:src="@drawable/l_e_others"/>
 </LinearLayout>

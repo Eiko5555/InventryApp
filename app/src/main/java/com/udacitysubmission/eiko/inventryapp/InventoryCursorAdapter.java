@@ -43,8 +43,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
                 view.findViewById(R.id.quantity);
         Button saleButton = (Button)
                 view.findViewById(R.id.saleButton);
-        Button orderButton = (Button)
-                view.findViewById(R.id.reorderButton);
         ImageView imageview = (ImageView)
                 view.findViewById(R.id.image);
 
@@ -60,10 +58,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
                 InventoryContract.InventoryEntry._ID);
 
         String itemImageString = cursor.getString(sImage);
-        if (TextUtils.isEmpty(itemImageString)){
-            itemImageString = InventoryContract.NO_IMAGE;
-        }
-         final String itemName = cursor.getString(sItemName);
+        final String itemName = cursor.getString(sItemName);
         String itemPrice = cursor.getString(sPrice);
         String itemQuantity = cursor.getString(sQuantity);
         final int quantityUpdate = Integer.parseInt(itemQuantity);
@@ -79,7 +74,9 @@ public class InventoryCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 int qty = quantityUpdate;
-                qty--;
+                if (qty > 0) {
+                    qty--;
+                }
                 ContentValues values = new ContentValues();
                 values.put(InventoryContract.InventoryEntry.COLUMN_ITEM_QUANTITY,
                         qty);
@@ -90,26 +87,5 @@ public class InventoryCursorAdapter extends CursorAdapter {
                 contentResolver.update(uri, values, null, null);
             }
         });
-
-        orderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String orderMsg = orderSummery(itemName);
-                Intent intentOrderRequest = new Intent(Intent.ACTION_SENDTO);
-                intentOrderRequest.setData(Uri.parse("mailto: amazon@gmail.com"));
-                intentOrderRequest.putExtra(Intent.EXTRA_SUBJECT,
-                        "Re-order request for " + itemName);
-                Log.v("cursoradapter", "order intent" + itemName);
-                intentOrderRequest.putExtra(Intent.EXTRA_TEXT,
-                        orderMsg);
-                context.startActivity(intentOrderRequest);
-            }
-        });
-    }
-
-    private String orderSummery(String name) {
-        String orderMsg = "Order Request\n" +
-                "We would like to order 10 of " + name;
-        return orderMsg;
     }
 }
