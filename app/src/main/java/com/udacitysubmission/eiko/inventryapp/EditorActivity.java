@@ -10,8 +10,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,7 +30,6 @@ import android.widget.Toast;
 
 import com.udacitysubmission.eiko.inventryapp.data.InventoryContract;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -172,13 +169,7 @@ public class EditorActivity extends AppCompatActivity
         String imageString = "";
         if (mImageUri != null){
             imageString = mImageUri.toString();
-//            if (imageString == null){
-////                    Bitmap bm = BitmapFactory.decodeResource(
-////                            getResources(),R.drawable.l_e_others);
-//                    mImageView.setImageResource(R.drawable.l_e_others);
         }else {
-//            imageString = "drawable://" + R.drawable.l_e_others;
-//            mImageView.setImageResource(R.drawable.l_e_others);
             imageString = image;
         }
 
@@ -209,7 +200,7 @@ public class EditorActivity extends AppCompatActivity
         if (mCurrentUri == null) {
             getContentResolver().insert(
                     InventoryContract.InventoryEntry.CONTENT_URI, values);
-            Toast.makeText(this,"Saved to the list. ", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this,"Saved to the list. ", Toast.LENGTH_LONG).show();
         } else {
             getContentResolver().update(
                     mCurrentUri, values, null, null);
@@ -350,22 +341,5 @@ public class EditorActivity extends AppCompatActivity
         Bitmap bm = BitmapFactory.decodeResource(
                     getResources(),R.drawable.l_e_others);
             mImageView.setImageBitmap(bm);
-//            mImageView.setImageResource(R.drawable.l_e_others);
-//            mImageView.setImageDrawable(getResources().getDrawable(R.drawable.l_e_others)
-//            String string = "@drawable/drawable.l_e_others";
-//            int imageresource = getResources().getIdentifier(string,null,
-//                    getPackageName());
-//            Drawable res = getResources().getDrawable(imageresource);
-//            mImageView.setImageDrawable(res);
-
-//            mImageView.getimageResource(Uri.parse("android.resource://com.udacitysubmission.eiko.inventryapp/l_e_others.png"));
-
-//        }
-//        File imageFile = new File(InventoryContract.NO_IMAGE);
-//        if (imageFile.exists()){
-//            Bitmap bitmap = BitmapFactory.decodeFile(
-//                    imageFile.getAbsolutePath());
-//            mImageView.setImageBitmap(bitmap);
-//        }
     }
 }
