@@ -172,10 +172,13 @@ public class EditorActivity extends AppCompatActivity
         String imageString = "";
         if (mImageUri != null){
             imageString = mImageUri.toString();
-            if (imageString == null){
-                imageString = InventoryContract.NO_IMAGE;
-            }
+//            if (imageString == null){
+////                    Bitmap bm = BitmapFactory.decodeResource(
+////                            getResources(),R.drawable.l_e_others);
+//                    mImageView.setImageResource(R.drawable.l_e_others);
         }else {
+//            imageString = "drawable://" + R.drawable.l_e_others;
+//            mImageView.setImageResource(R.drawable.l_e_others);
             imageString = image;
         }
 
@@ -201,10 +204,12 @@ public class EditorActivity extends AppCompatActivity
 
         Log.v("EditorActivity", "saveing item");
 
+
+
         if (mCurrentUri == null) {
             getContentResolver().insert(
                     InventoryContract.InventoryEntry.CONTENT_URI, values);
-            Toast.makeText(this,"Error saving...", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Saved to the list. ", Toast.LENGTH_LONG).show();
         } else {
             getContentResolver().update(
                     mCurrentUri, values, null, null);
@@ -225,7 +230,6 @@ public class EditorActivity extends AppCompatActivity
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             mImageView.setImageURI(mImageUri);
         }
     }
@@ -342,8 +346,11 @@ public class EditorActivity extends AppCompatActivity
         mItemEditText.setText("");
         mPriceEditText.setText("");
         mQuantityTextView.setText("");
-        if (image == null) {
-            mImageView.setImageResource(R.drawable.l_e_others);
+
+        Bitmap bm = BitmapFactory.decodeResource(
+                    getResources(),R.drawable.l_e_others);
+            mImageView.setImageBitmap(bm);
+//            mImageView.setImageResource(R.drawable.l_e_others);
 //            mImageView.setImageDrawable(getResources().getDrawable(R.drawable.l_e_others)
 //            String string = "@drawable/drawable.l_e_others";
 //            int imageresource = getResources().getIdentifier(string,null,
@@ -353,7 +360,6 @@ public class EditorActivity extends AppCompatActivity
 
 //            mImageView.getimageResource(Uri.parse("android.resource://com.udacitysubmission.eiko.inventryapp/l_e_others.png"));
 
-        }
 //        }
 //        File imageFile = new File(InventoryContract.NO_IMAGE);
 //        if (imageFile.exists()){
